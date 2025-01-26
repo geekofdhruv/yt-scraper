@@ -16,18 +16,15 @@ def channel_details(forHandle):
     }
     response = requests.get(base_url, params=params)
     
-    # Check if the request was successful
     if response.status_code == 200:
-        # Parse the response JSON
-        data = response.json()
         
-        # Extract relevant details
+        data = response.json()
+    
         if "items" in data and len(data["items"]) > 0:
             channel = data["items"][0]
             snippet = channel.get("snippet", {})
             statistics = channel.get("statistics", {})
             
-            # Return extracted details
             return {
                 "title": snippet.get("title", "N/A"),
                 "description": snippet.get("description", "N/A"),
@@ -41,7 +38,7 @@ def channel_details(forHandle):
         else:
             return {"error": "No channel found with the provided handle."}
     else:
-        # Handle API errors
+        
         return {"error": f"API request failed with status code {response.status_code}: {response.text}"}
     
 
@@ -56,14 +53,12 @@ def video_info(id):
 
     if response.status_code == 200:
         data = response.json()
-        
-        # Extract relevant details
+    
         if "items" in data and len(data["items"]) > 0:
             channel = data["items"][0]
             snippet = channel.get("snippet",{})
             statistics = channel.get("statistics", {})
-            
-            # Return extracted details
+           
             return { 
                "publishedAt": snippet.get('publishedAt', 'N/A'),
                "title": snippet.get('title','N/A'),
@@ -75,11 +70,11 @@ def video_info(id):
         else:
             return {"error": "No video found"}
     else:
-        # Handle API errors
+       
         return {"error": f"API request failed with status code {response.status_code}: {response.text}"}
 
 
-# Test the function
+
 urlInput = input("URL link : ")
 def info(urlInput) : 
     if 'watch?v=' in urlInput:
